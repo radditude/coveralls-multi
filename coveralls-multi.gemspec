@@ -1,27 +1,26 @@
 
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "coveralls-multi/version"
+require 'coveralls-multi/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "coveralls-multi"
+  spec.name          = 'coveralls-multi'
   spec.version       = CoverallsMulti::VERSION
-  spec.authors       = ["CJ Horton"]
-  spec.email         = ["thecjhorton@gmail.com"]
+  spec.authors       = ['CJ Horton']
+  spec.email         = ['thecjhorton@gmail.com']
 
-  spec.summary       = %q{Coveralls support for multi-language repos.}
-  spec.description   = %q{Merges coverage files from multiple languages and test suites and pushes the merged file to Coveralls.}
+  spec.summary       = 'Coveralls support for multi-language repos.'
+  spec.description   = 'Merges coverage files from multiple languages and test suites and pushes the merged file to Coveralls.'
   # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-  spec.license       = "MIT"
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.executables   = 'coveralls-multi'
+  spec.require_paths = ['lib']
 
-  spec.add_development_dependency "bundler", "~> 1.16"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency 'bundler', '~> 1.16'
+  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rspec', '~> 3.0'
 end

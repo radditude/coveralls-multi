@@ -1,5 +1,9 @@
-require "coveralls-multi/version"
+require 'coveralls-multi/version'
 
 module CoverallsMulti
-  # Your code goes here...
+  class CLI
+    def start
+      puts 'this works'
+    end
+  end
 end

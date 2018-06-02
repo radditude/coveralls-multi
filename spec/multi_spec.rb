@@ -21,7 +21,13 @@ RSpec.describe CoverallsMulti do
   # it 'iterates over a coverage directory and checks for known filetypes' do
   # end
 
+  # it 'checks for a coveralls.yml file' do
+  # end
+
   # it 'reads file paths from yaml config' do
+  # end
+
+  # it 'has a wizard to help with setup' do
   # end
 
   # TODO: allow coveralls-multi to run your tests for you too
