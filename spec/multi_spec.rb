@@ -1,6 +1,6 @@
-RSpec.describe Coveralls::Multi do
+RSpec.describe CoverallsMulti do
   it "has a version number" do
-    expect(Coveralls::Multi::VERSION).not_to be nil
+    expect(CoverallsMulti::VERSION).not_to be nil
   end
 
   it "does something useful" do

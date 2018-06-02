@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "coveralls/multi"
+require "coveralls-multi"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
