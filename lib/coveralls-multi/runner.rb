@@ -1,4 +1,5 @@
 require 'json'
+require 'coveralls'
 
 module CoverallsMulti
   class Runner
@@ -14,6 +15,18 @@ module CoverallsMulti
 
     def start
       puts 'this works'
+      payload = unified_payload
+      Coveralls::API.post_json('jobs', payload)
+    end
+
+    def unified_payload
+      payload = CoverallsMulti::Merger.merge(@files)
+      write_to_file(payload)
+      payload
+    end
+
+    def write_to_file(payload)
+      File.write("#{COVERAGE_PATH}/coveralls.json", JSON.pretty_generate(payload))
     end
   end
 end

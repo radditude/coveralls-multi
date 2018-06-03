@@ -59,9 +59,9 @@ RSpec.describe CoverallsMulti do
     expect(results).to be_a(Hash)
   end
 
-  it 'checks for source digests and adds them if needed' do
-    pending
-  end
+  # it 'checks for source digests and adds them if needed' do
+  #   pending
+  # end
 
   # TODO: add some validators so nobody has to spend their time poring over json files figuring out what went wrong
   # it 'validates the merged file to ensure it is valid JSON' do
@@ -71,12 +71,17 @@ RSpec.describe CoverallsMulti do
   # end
 
   # TODO: use coveralls.yml instead of env vars
-  it 'adds coveralls keys' do
-    pending 
+  it 'adds travis keys' do
+    results = CoverallsMulti::Merger.merge(@runner.files)
+
+    expect(results['service_name']).to eq('travis-pro')
+    expect(results['repo_token']).to be_a(String)
   end
 
   it 'calls Coveralls::API.post_json' do
-    pending 
+    allow(Coveralls::API).to receive(:post_json).and_return('pushed!')
+
+    expect(@runner.start).to eq('pushed!')
   end
 
   # TODO: more debugging tools to make it easier to add other formatters in the future

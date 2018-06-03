@@ -10,7 +10,8 @@ module CoverallsMulti
       js_result['source_files'].concat ruby_result
       merged = js_result
       # create md5 source digests for all files
-      merged['source_files'] = CoverallsMulti::Formatter.add_source_digests(merged['source_files'])
+      CoverallsMulti::Formatter.add_source_digests(merged)
+      CoverallsMulti::Formatter.add_travis_keys(merged)
       merged
     end
   end
