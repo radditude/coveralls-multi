@@ -4,7 +4,7 @@ require 'coveralls'
 module CoverallsMulti
   class Runner
     attr_accessor :files
-    COVERAGE_PATH = "#{CoverallsMulti::Config.root}/coverage".freeze
+    COVERAGE_PATH = "#{CoverallsMulti::Config.root}/spec/fixtures".freeze
 
     def initialize
       puts "Parsing files at #{COVERAGE_PATH}"
@@ -16,8 +16,9 @@ module CoverallsMulti
 
     def start
       payload = unified_payload
-      puts 'Starting push to Coveralls'
-      Coveralls::API.post_json('jobs', payload)
+      puts 'Validating payload and pushing to Coveralls'
+      valid = CoverallsMulti::Validator.new(payload).run
+      Coveralls::API.post_json('jobs', payload) if valid
     end
 
     def unified_payload

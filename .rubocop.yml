@@ -1,0 +1,14 @@
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+  
+Metrics/LineLength:
+  Max: 100
+
+EmptyMethod:
+  EnforcedStyle: expanded

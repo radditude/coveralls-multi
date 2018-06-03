@@ -1,8 +1,9 @@
-require 'bundler/setup'
-require 'coveralls-multi'
 require 'simplecov'
 
 SimpleCov.start
+
+require 'bundler/setup'
+require 'coveralls-multi'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

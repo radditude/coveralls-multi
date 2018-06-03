@@ -50,6 +50,7 @@ DEPENDENCIES
   coveralls-multi!
   rake (~> 10.0)
   rspec (~> 3.0)
+  simplecov (~> 0.14.1)
 
 BUNDLED WITH
    1.16.1

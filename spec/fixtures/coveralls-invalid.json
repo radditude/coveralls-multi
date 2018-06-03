@@ -1,0 +1,23 @@
+{
+  "service_name": "travis-pro",
+  "git": {
+    "head": {
+      "id": "79d147e32deb3e3909623e15718b4323423423\n",
+      "committer_email": "---@--.com\n",
+      "committer_name": "--\n",
+      "author_email": "----@--.com\n",
+      "author_name": "--\n",
+      "message": "do a thing\n"
+    },
+    "remotes": [
+
+    ],
+    "branch": "coveralls\n"
+  },
+  "source_files": [
+    {
+      "not a valid source file key": "random value"
+    }
+  ],
+  "repo_token": "qwerty"
+}

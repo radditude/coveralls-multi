@@ -8,12 +8,26 @@ RSpec.describe CoverallsMulti do
     expect(CoverallsMulti::VERSION).not_to be nil
   end
 
-  it 'initializes without throwing' do
-    expect { CoverallsMulti::Runner.new }.not_to raise_error
+  describe CoverallsMulti::Runner do
+    it 'initializes without throwing' do
+      expect { CoverallsMulti::Runner.new }.not_to raise_error
+    end
+
+    it 'loads the files' do
+      expect(@runner.files).to be_a(Hash)
+    end
+
+    it 'calls Coveralls::API.post_json' do
+      allow(Coveralls::API).to receive(:post_json).and_return('pushed!')
+
+      expect(@runner.start).to eq('pushed!')
+    end
   end
 
-  it 'loads the files' do
-    expect(@runner.files).to be_a(Hash)
+  describe CoverallsMulti::Config do
+    it 'can return the repo root path' do
+      expect(CoverallsMulti::Config.root).to eq(File.expand_path(Dir.getwd))
+    end
   end
 
   # TODO: make file loading more configurable & fault-tolerant
@@ -39,10 +53,12 @@ RSpec.describe CoverallsMulti do
   # it 'can take a set of test commands to run' do
   # end
 
-  it 'formats Simplecov results files' do
-    results = CoverallsMulti::Formatter::SimpleCov.run(@runner.files[:ruby])
-    # TODO: have this compare against an existing output file
-    expect(results).to be_a(Array)
+  describe CoverallsMulti::Formatter do
+    it 'formats Simplecov results files' do
+      results = CoverallsMulti::Formatter::SimpleCov.new.run(@runner.files[:ruby])
+      # TODO: have this compare against an existing output file
+      expect(results).to be_a(Array)
+    end
   end
 
   # TODO: convert lcov results using the coveralls-lcov gem in the tool itself
@@ -53,36 +69,26 @@ RSpec.describe CoverallsMulti do
   # it 'formats elixir coverage files' do
   # end
 
-  it 'merges two or more formatted files' do
-    results = CoverallsMulti::Merger.merge(@runner.files)
-    # TODO: should also compare itself with an existing output file
-    expect(results).to be_a(Hash)
+  describe CoverallsMulti::Merger do
+    it 'merges two or more formatted files' do
+      results = CoverallsMulti::Merger.new.merge(@runner.files)
+      # TODO: should also compare itself with an existing output file
+      expect(results).to be_a(Hash)
+    end
+
+    it 'adds travis keys' do
+      results = CoverallsMulti::Merger.new.merge(@runner.files)
+  
+      expect(results['service_name']).to eq('travis-pro')
+      expect(results['repo_token']).to be_a(String)
+    end
   end
 
   # it 'checks for source digests and adds them if needed' do
   #   pending
   # end
 
-  # TODO: add some validators so nobody has to spend their time poring over json files figuring out what went wrong
-  # it 'validates the merged file to ensure it is valid JSON' do
-  # end
-
-  # it 'validates the merged file to ensure it has all the correct coveralls keys' do
-  # end
-
   # TODO: use coveralls.yml instead of env vars
-  it 'adds travis keys' do
-    results = CoverallsMulti::Merger.merge(@runner.files)
-
-    expect(results['service_name']).to eq('travis-pro')
-    expect(results['repo_token']).to be_a(String)
-  end
-
-  it 'calls Coveralls::API.post_json' do
-    allow(Coveralls::API).to receive(:post_json).and_return('pushed!')
-
-    expect(@runner.start).to eq('pushed!')
-  end
 
   # TODO: more debugging tools to make it easier to add other formatters in the future
   # it 'takes a flag to run without pushing to Coveralls' do

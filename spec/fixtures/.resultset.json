@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/cjhorton/src/coveralls-multi/spec/multi_spec.rb": [
+      "/Users/cjhorton/src/coveralls-multi/spec/coveralls_multi_spec.rb": [
         1,
         1,
         1,
