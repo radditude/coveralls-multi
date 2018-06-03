@@ -1,14 +1,19 @@
+
 RSpec.describe CoverallsMulti do
+  before do
+    @runner = CoverallsMulti::Runner.new
+  end
+
   it 'has a version number' do
     expect(CoverallsMulti::VERSION).not_to be nil
   end
 
   it 'initializes without throwing' do
-    # test initalizer
+    expect { CoverallsMulti::Runner.new }.not_to raise_error
   end
 
   it 'loads the files' do
-    # test existing file loader w/ hardcoded paths
+    expect(@runner.files).to be_a(Hash)
   end
 
   # TODO: make file loading more configurable & fault-tolerant
