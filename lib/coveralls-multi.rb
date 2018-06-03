@@ -1,9 +1,6 @@
 require 'coveralls-multi/version'
+require 'coveralls-multi/runner'
 
+# Main namespace for the gem
 module CoverallsMulti
-  class CLI
-    def start
-      puts 'this works'
-    end
-  end
 end

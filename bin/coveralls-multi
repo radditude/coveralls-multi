@@ -3,4 +3,4 @@
 require 'bundler/setup'
 require 'coveralls-multi'
 
-CoverallsMulti::CLI.new.start
+CoverallsMulti::Runner.new.start
