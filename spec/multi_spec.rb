@@ -54,7 +54,9 @@ RSpec.describe CoverallsMulti do
   # end
 
   it 'merges two or more formatted files' do
-    pending
+    results = CoverallsMulti::Merger.merge(@runner.files)
+    # TODO: should also compare itself with an existing output file
+    expect(results).to be_a(Hash)
   end
 
   it 'checks for source digests and adds them if needed' do
@@ -70,11 +72,11 @@ RSpec.describe CoverallsMulti do
 
   # TODO: use coveralls.yml instead of env vars
   it 'adds coveralls keys' do
-    pending
+    pending 
   end
 
   it 'calls Coveralls::API.post_json' do
-    pending
+    pending 
   end
 
   # TODO: more debugging tools to make it easier to add other formatters in the future
