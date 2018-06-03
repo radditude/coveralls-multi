@@ -1,0 +1,84 @@
+{
+  "service_name": "travis-ci",
+  "service_job_id": null,
+  "git": {
+    "head": {
+      "id": "79d147e32deb3e3909623e15718b4323423423\n",
+      "committer_email": "---@--.com\n",
+      "committer_name": "--\n",
+      "author_email": "----@--.com\n",
+      "author_name": "--\n",
+      "message": "do a thing\n"
+    },
+    "remotes": [],
+    "branch": "coveralls\n"
+  },
+  "source_files": [
+    {
+      "name": "render-server/.mocha/setup/index.js",
+      "source":
+        "require('babel-register')\nrequire('source-map-support').install()\nrequire('./setup.js').default()\n",
+      "coverage": [1, 1, 1]
+    },
+    {
+      "name": "render-server/.mocha/setup/setup.js",
+      "source":
+        "import jsdom from 'jsdom'\nimport chai from 'chai'\nimport chaiAsPromised from 'chai-as-promised'\nimport {shallow, mount, render} from 'enzyme'\n\nexport default function setup() {\n  createDOM()\n  configureChai()\n  configureEnzyme()\n  configurePropValidationErrors()\n}\n\nfunction createDOM() {\n  global.document = jsdom.jsdom('')\n  global.window = global.document.defaultView\n  global.navigator = {\n    userAgent: 'node.js'\n  }\n\n  Object.keys(global.document.defaultView).forEach((name) => {\n    if (typeof global[name] === 'undefined') {\n      global[name] = global.document.defaultView[name]\n    }\n  })\n}\n\nfunction configureChai() {\n  chai.use(chaiAsPromised)\n  global.expect = chai.expect\n}\n\nfunction configureEnzyme() {\n  global.shallow = shallow\n  global.mount = mount\n  global.render = render\n}\n\nfunction configurePropValidationErrors() {\n  const error = console.error\n  console.error = function(warning, ...args) {\n    if (/(Invalid prop|Failed prop type)/.test(warning)) {\n      throw new Error(warning)\n    }\n    error.apply(console, [warning, ...args])\n  }\n}\n",
+      "coverage": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        82,
+        62,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        2,
+        2,
+        0,
+        null,
+        2,
+        null,
+        null
+      ],
+      "branches": [21, 0, 0, 62, 21, 0, 1, 20, 41, 1, 0, 0, 41, 1, 1, 2]
+    },
+    {
+      "name": "render-server/src/js/app/directory/file.js",
+      "source":
+        "import {PropTypes} from 'react'\n\nconst Shape = {\n  id: PropTypes.number, \n}\n\nexport default Shape\n",
+      "coverage": [1, null, 1, null, null, null, null, null, null, null]
+    }
+  ]
+}
