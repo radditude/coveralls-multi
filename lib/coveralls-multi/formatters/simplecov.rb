@@ -1,14 +1,17 @@
 module CoverallsMulti
   class Formatter
+    # formats SimpleCov coverage results files
+    # before merge + push to Coveralls
     class SimpleCov
+
       # helper to grab the non-absolute filename from simplecov results
-      def format_short_filename(filename)
+      def self.format_short_filename(filename)
         filename = filename.gsub(::SimpleCov.root, '.').gsub(/^\.\//, '') if ::SimpleCov.root
         filename
       end
 
       # get relevant data from the Ruby coverage report & format it
-      def get_ruby_source_files(simple_cov)
+      def self.run(simple_cov)
         source_files = []
         simple_cov['RSpec']['coverage'].each do |filename, coverage|
           properties = {}
@@ -16,7 +19,7 @@ module CoverallsMulti
           # Get Source
           properties['source'] = File.open(filename, 'rb:utf-8').read
 
-          # Get the root-relative filename
+          # Get the filename relative to the repo root
           properties['name'] = format_short_filename(filename)
 
           # Get the coverage

@@ -40,7 +40,9 @@ RSpec.describe CoverallsMulti do
   # end
 
   it 'formats Simplecov results files' do
-    # this could prob be broken out into multiple tests
+    results = CoverallsMulti::Formatter::SimpleCov.run(@runner.files[:ruby])
+    # TODO: have this compare against an existing output file
+    expect(results).to be_a(Array)
   end
 
   # TODO: convert lcov results using the coveralls-lcov gem in the tool itself
@@ -52,9 +54,11 @@ RSpec.describe CoverallsMulti do
   # end
 
   it 'merges two or more formatted files' do
+    pending
   end
 
   it 'checks for source digests and adds them if needed' do
+    pending
   end
 
   # TODO: add some validators so nobody has to spend their time poring over json files figuring out what went wrong
@@ -66,9 +70,11 @@ RSpec.describe CoverallsMulti do
 
   # TODO: use coveralls.yml instead of env vars
   it 'adds coveralls keys' do
+    pending
   end
 
   it 'calls Coveralls::API.post_json' do
+    pending
   end
 
   # TODO: more debugging tools to make it easier to add other formatters in the future

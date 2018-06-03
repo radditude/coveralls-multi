@@ -1,3 +1,4 @@
+# require individual formatters here
 require 'coveralls-multi/formatters/simplecov'
 
 module CoverallsMulti
