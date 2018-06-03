@@ -27,20 +27,22 @@ module CoverallsMulti
   # }
   #
   class Formatter
-    def self.add_source_digests(merged_files)
+    def add_source_digests(merged_files)
       merged_files['source_files'].map do |src_file|
         file_content = src_file['source']
         src_digest = Digest::MD5.hexdigest(file_content)
         src_file['source_digest'] = src_digest
         src_file
       end
+      puts 'Added source digests'
       merged_files
     end
 
-    def self.add_travis_keys(payload)
+    def add_travis_keys(payload)
       payload['service_name'] = 'travis-pro'
       payload['repo_token'] = ENV['COVERALLS_REPO_TOKEN'] || ''
       payload.delete 'service_job_id'
+      puts 'Added Travis keys'
       payload
     end
   end

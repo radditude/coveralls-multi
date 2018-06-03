@@ -5,13 +5,13 @@ module CoverallsMulti
     class SimpleCov
 
       # helper to grab the non-absolute filename from simplecov results
-      def self.format_short_filename(filename)
-        filename = filename.gsub(::SimpleCov.root, '.').gsub(/^\.\//, '') if ::SimpleCov.root
+      def format_short_filename(filename)
+        filename = filename.gsub(CoverallsMulti::Config.root, '.').gsub(/^\.\//, '') if CoverallsMulti::Config.root
         filename
       end
 
       # get relevant data from the Ruby coverage report & format it
-      def self.run(simple_cov)
+      def run(simple_cov)
         source_files = []
         simple_cov['RSpec']['coverage'].each do |filename, coverage|
           properties = {}
@@ -27,6 +27,7 @@ module CoverallsMulti
 
           source_files << properties
         end
+        puts 'SimpleCov report reformatted to prepare for merge'
         source_files
       end
     end
