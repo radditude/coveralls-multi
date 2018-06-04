@@ -2,4 +2,4 @@ service_name: travis-ci
 repo_token: zyx
 multi:
   simplecov: 'spec/fixtures/.resultset.json'
-  javascript: 'spec/fixtures/jscov.json'
+  lcov: 'spec/fixtures/lcov.info'

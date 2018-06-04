@@ -15,15 +15,20 @@ module CoverallsMulti
         file = CoverallsMulti::Formatter.parse_json(file_path)
 
         source_files = []
-        file['RSpec']['coverage'].each do |filename, coverage|
-          properties = {}
+        begin
+          file['RSpec']['coverage'].each do |filename, coverage|
+            properties = {}
 
-          properties['source'] = File.open(filename, 'rb:utf-8').read
-          properties['name'] = format_short_filename(filename)
-          properties['coverage'] = coverage
+            properties['source'] = File.open(filename, 'rb:utf-8').read
+            properties['name'] = format_short_filename(filename)
+            properties['coverage'] = coverage
 
-          source_files << properties
+            source_files << properties
+          end
+        rescue StandardError => e
+          raise e, "There was a problem formatting the simplecov report at #{file_path}"
         end
+
         puts 'SimpleCov report reformatted to prepare for merge'
         source_files
       end

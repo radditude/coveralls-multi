@@ -26,13 +26,11 @@ module CoverallsMulti
     end
 
     def merge
-      # we can use the js result as the foundation for now
-      # since it already has service_name and service_job_id thanks to coveralls-lcov
-      js_result = CoverallsMulti::Formatter.parse_json(@files['javascript'])
+      js_result = formatter('lcov').new.run(@files['lcov'])
       ruby_result = formatter('simplecov').new.run(@files['simplecov'])
       # add Ruby coverage
-      js_result['source_files'].concat ruby_result
-      merged = js_result
+      source_files = js_result.concat ruby_result
+      merged = { 'source_files' => source_files }
       # create md5 source digests for all files
       CoverallsMulti::Formatter.add_source_digests(merged)
       CoverallsMulti::Formatter.add_travis_keys(merged)

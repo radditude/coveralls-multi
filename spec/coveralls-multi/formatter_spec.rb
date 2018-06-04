@@ -3,7 +3,7 @@ RSpec.describe CoverallsMulti::Formatter do
     {
       'multi' => {
         'simplecov' => 'spec/fixtures/.resultset.json',
-        'javascript' => 'spec/fixtures/jscov.json',
+        'javascript' => 'spec/fixtures/lcov.info',
       }
     }
   }
@@ -39,10 +39,31 @@ RSpec.describe CoverallsMulti::Formatter do
       # TODO: have this compare against an existing output file
       expect(results).to be_a(Array)
     end
+
+    it 'throws an error if there is a problem' do
+      path = 'spec/fixtures/.invalidresultset.json'
+
+      expect do
+        CoverallsMulti::Formatter::Simplecov.new.run('spec/fixtures/.invalidresultset.json')
+      end.to raise_error "There was a problem formatting the simplecov report at #{path}"
+    end
   end
 
   # TODO: convert lcov results using the coveralls-lcov gem in the tool itself
-  it 'converts lcov results files'
+  describe '::Lcov' do
+    it 'converts lcov results files' do
+      results = CoverallsMulti::Formatter::Lcov.new.run(@runner.files['javascript'])
+      expect(results).to be_a(Array)
+    end
+
+    it 'throws an error if conversion was not successful' do
+      path = 'fake/path/to/nothing'
+
+      expect do
+        CoverallsMulti::Formatter::Lcov.new.run(path)
+      end.to raise_error "There was a problem converting the lcov file at #{path}"
+    end
+  end
 
   # TODO: what do elixir coverage files look like?
   it 'formats elixir coverage files'

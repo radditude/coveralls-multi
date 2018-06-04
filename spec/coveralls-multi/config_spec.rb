@@ -19,7 +19,7 @@ RSpec.describe CoverallsMulti::Config do
         'service_name' => 'travis-ci',
         'multi' => {
           'simplecov' => 'spec/fixtures/.resultset.json',
-          'javascript' => 'spec/fixtures/jscov.json',
+          'lcov' => 'spec/fixtures/lcov.info',
         },
       }
       expect(CoverallsMulti::Config.yaml_config).to eq(yml)
@@ -36,7 +36,7 @@ RSpec.describe CoverallsMulti::Config do
     it 'can return the coveralls-multi config' do
       yml = {
         'simplecov' => 'spec/fixtures/.resultset.json',
-        'javascript' => 'spec/fixtures/jscov.json',
+        'lcov' => 'spec/fixtures/lcov.info',
       }
       allow(CoverallsMulti::Config).to receive(:root).and_return("#{Dir.pwd}/spec/fixtures")
       expect(CoverallsMulti::Config.files).to eq(yml)

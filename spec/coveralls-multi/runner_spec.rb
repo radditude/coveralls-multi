@@ -3,7 +3,7 @@ RSpec.describe CoverallsMulti::Runner do
     {
       'multi' => {
         'simplecov' => 'spec/fixtures/.resultset.json',
-        'javascript' => 'spec/fixtures/jscov.json',
+        'lcov' => 'spec/fixtures/lcov.info',
       }
     }
   }
