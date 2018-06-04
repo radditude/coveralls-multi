@@ -18,8 +18,8 @@ module CoverallsMulti
     def json?
       parsed_json = JSON.dump(@payload)
       parsed_json
-    rescue JSON::UnparserError
-      raise JSON::UnparserError, 'Payload could not be parsed to JSON!'
+    rescue JSON::UnparserError => e
+      raise e, 'Payload could not be parsed to JSON!'
     end
 
     def valid_coveralls_payload?

@@ -19,7 +19,7 @@ module CoverallsMulti
       end
 
       def root
-        File.expand_path(Dir.getwd)
+        Dir.pwd
       end
 
       def configuration_path

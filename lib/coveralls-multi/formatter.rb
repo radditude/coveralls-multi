@@ -28,8 +28,10 @@ module CoverallsMulti
         payload
       end
 
-      def parse_file(path)
+      def parse_json(path)
         JSON.parse(IO.read("#{CoverallsMulti::Config.root}/#{path}"))
+      rescue StandardError => e
+        raise e, "Could not parse file at #{path}"
       end
     end
   end
