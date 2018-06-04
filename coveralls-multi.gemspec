@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['CJ Horton']
   spec.email         = ['thecjhorton@gmail.com']
 
-  spec.summary       = 'Coveralls support for multi-language repos.'
-  spec.description   = 'Merges coverage files from multiple languages and test suites and pushes the merged file to Coveralls.'
+  spec.summary       = 'Coveralls client for multi-language repos.'
+  spec.description   = 'A configurable Coveralls client that supports merging coverage from multiple languages & test suites.'
   # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = 'MIT'
 
@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'coveralls-lcov', '~> 1.5.1'
 
   spec.add_development_dependency 'bundler', '~> 1.16'
+  spec.add_development_dependency 'pry', '~> 0.11.3'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'simplecov', '~> 0.14.1'

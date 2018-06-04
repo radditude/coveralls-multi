@@ -1,6 +1,16 @@
 
 RSpec.describe CoverallsMulti do
+  let(:yml) {
+    {
+      'multi' => {
+        'ruby' => 'spec/fixtures/.resultset.json',
+        'javascript' => 'spec/fixtures/jscov.json',
+      }
+    }
+  }
+
   before do
+    allow_any_instance_of(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
     @runner = CoverallsMulti::Runner.new
   end
 
@@ -22,6 +32,19 @@ RSpec.describe CoverallsMulti do
 
       expect(@runner.start).to eq('pushed!')
     end
+
+    it 'merges two formatted files' do
+      results = @runner.merge
+      # TODO: should also compare itself with an existing output file
+      expect(results).to be_a(Hash)
+    end
+
+    it 'adds travis keys' do
+      results = @runner.merge
+
+      expect(results['service_name']).to eq('travis-pro')
+      expect(results['repo_token']).to be_a(String)
+    end
   end
 
   describe CoverallsMulti::Config do
@@ -30,7 +53,6 @@ RSpec.describe CoverallsMulti do
     end
   end
 
-  # TODO: make file loading more configurable & fault-tolerant
   # it 'throws an error if a file is not found' do
   # end
 
@@ -55,7 +77,7 @@ RSpec.describe CoverallsMulti do
 
   describe CoverallsMulti::Formatter do
     it 'formats Simplecov results files' do
-      results = CoverallsMulti::Formatter::SimpleCov.new.run(@runner.files[:ruby])
+      results = CoverallsMulti::Formatter::SimpleCov.new.run(@runner.files['ruby'])
       # TODO: have this compare against an existing output file
       expect(results).to be_a(Array)
     end
@@ -68,21 +90,6 @@ RSpec.describe CoverallsMulti do
   # TODO: what do elixir coverage files look like?
   # it 'formats elixir coverage files' do
   # end
-
-  describe CoverallsMulti::Merger do
-    it 'merges two or more formatted files' do
-      results = CoverallsMulti::Merger.new.merge(@runner.files)
-      # TODO: should also compare itself with an existing output file
-      expect(results).to be_a(Hash)
-    end
-
-    it 'adds travis keys' do
-      results = CoverallsMulti::Merger.new.merge(@runner.files)
-  
-      expect(results['service_name']).to eq('travis-pro')
-      expect(results['repo_token']).to be_a(String)
-    end
-  end
 
   # it 'checks for source digests and adds them if needed' do
   #   pending

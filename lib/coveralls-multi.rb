@@ -1,6 +1,5 @@
 require 'coveralls-multi/config'
 require 'coveralls-multi/formatter'
-require 'coveralls-multi/merger'
 require 'coveralls-multi/runner'
 require 'coveralls-multi/validator'
 require 'coveralls-multi/version'
