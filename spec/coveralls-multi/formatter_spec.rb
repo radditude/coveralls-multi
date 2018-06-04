@@ -1,12 +1,12 @@
 RSpec.describe CoverallsMulti::Formatter do
-  let(:yml) {
+  let(:yml) do
     {
       'multi' => {
         'simplecov' => 'spec/fixtures/.resultset.json',
-        'javascript' => 'spec/fixtures/lcov.info',
-      }
+        'lcov' => 'spec/fixtures/lcov.info',
+      },
     }
-  }
+  end
 
   before do
     allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
@@ -15,7 +15,7 @@ RSpec.describe CoverallsMulti::Formatter do
 
   describe '.parse_json' do
     it 'parses a JSON file at a given path' do
-      expect(CoverallsMulti::Formatter.parse_json(@runner.files['simplecov'])).to be_a(Hash)
+      expect(CoverallsMulti::Formatter.parse_json('spec/fixtures/coveralls.json')).to be_a(Hash)
     end
 
     it 'raises an error if the file is not found' do
@@ -36,7 +36,6 @@ RSpec.describe CoverallsMulti::Formatter do
   describe '::SimpleCov' do
     it 'formats Simplecov results files' do
       results = CoverallsMulti::Formatter::Simplecov.new.run(@runner.files['simplecov'])
-      # TODO: have this compare against an existing output file
       expect(results).to be_a(Array)
     end
 
@@ -44,15 +43,14 @@ RSpec.describe CoverallsMulti::Formatter do
       path = 'spec/fixtures/.invalidresultset.json'
 
       expect do
-        CoverallsMulti::Formatter::Simplecov.new.run('spec/fixtures/.invalidresultset.json')
+        CoverallsMulti::Formatter::Simplecov.new.run(path)
       end.to raise_error "There was a problem formatting the simplecov report at #{path}"
     end
   end
 
-  # TODO: convert lcov results using the coveralls-lcov gem in the tool itself
   describe '::Lcov' do
     it 'converts lcov results files' do
-      results = CoverallsMulti::Formatter::Lcov.new.run(@runner.files['javascript'])
+      results = CoverallsMulti::Formatter::Lcov.new.run(@runner.files['lcov'])
       expect(results).to be_a(Array)
     end
 

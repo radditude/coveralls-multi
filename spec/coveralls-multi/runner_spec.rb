@@ -1,12 +1,12 @@
 RSpec.describe CoverallsMulti::Runner do
-  let(:yml) {
+  let(:yml) do
     {
       'multi' => {
         'simplecov' => 'spec/fixtures/.resultset.json',
         'lcov' => 'spec/fixtures/lcov.info',
-      }
+      },
     }
-  }
+  end
 
   before do
     allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)

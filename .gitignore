@@ -6,6 +6,8 @@
 /pkg/
 /spec/reports/
 /tmp/
+/spec/fixtures/lcov.info
+/spec/fixtures/.resultset.json
 
 # rspec failure tracking
 .rspec_status
