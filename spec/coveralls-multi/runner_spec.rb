@@ -2,7 +2,7 @@ RSpec.describe CoverallsMulti::Runner do
   let(:yml) {
     {
       'multi' => {
-        'ruby' => 'spec/fixtures/.resultset.json',
+        'simplecov' => 'spec/fixtures/.resultset.json',
         'javascript' => 'spec/fixtures/jscov.json',
       }
     }
@@ -75,7 +75,14 @@ RSpec.describe CoverallsMulti::Runner do
   end
 
   describe '.formatter' do
-    it 'chooses formatter dynamically' do
+    it 'gets the correct constant from a string' do
+      expect(@runner.formatter('simplecov')).to eq(CoverallsMulti::Formatter::Simplecov)
+    end
+
+    it 'throws an error if the formatter is not found' do
+      expect do
+        @runner.formatter('fake')
+      end.to raise_error 'Could not find formatter CoverallsMulti::Formatter::Fake'
     end
   end
 end

@@ -18,7 +18,7 @@ RSpec.describe CoverallsMulti::Config do
         'repo_token' => 'zyx',
         'service_name' => 'travis-ci',
         'multi' => {
-          'ruby' => 'spec/fixtures/.resultset.json',
+          'simplecov' => 'spec/fixtures/.resultset.json',
           'javascript' => 'spec/fixtures/jscov.json',
         },
       }
@@ -35,7 +35,7 @@ RSpec.describe CoverallsMulti::Config do
   describe '.files' do
     it 'can return the coveralls-multi config' do
       yml = {
-        'ruby' => 'spec/fixtures/.resultset.json',
+        'simplecov' => 'spec/fixtures/.resultset.json',
         'javascript' => 'spec/fixtures/jscov.json',
       }
       allow(CoverallsMulti::Config).to receive(:root).and_return("#{Dir.pwd}/spec/fixtures")

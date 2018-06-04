@@ -2,7 +2,7 @@ RSpec.describe CoverallsMulti::Formatter do
   let(:yml) {
     {
       'multi' => {
-        'ruby' => 'spec/fixtures/.resultset.json',
+        'simplecov' => 'spec/fixtures/.resultset.json',
         'javascript' => 'spec/fixtures/jscov.json',
       }
     }
@@ -15,7 +15,7 @@ RSpec.describe CoverallsMulti::Formatter do
 
   describe '.parse_json' do
     it 'parses a JSON file at a given path' do
-      expect(CoverallsMulti::Formatter.parse_json(@runner.files['ruby'])).to be_a(Hash)
+      expect(CoverallsMulti::Formatter.parse_json(@runner.files['simplecov'])).to be_a(Hash)
     end
 
     it 'raises an error if the file is not found' do
@@ -35,7 +35,7 @@ RSpec.describe CoverallsMulti::Formatter do
 
   describe '::SimpleCov' do
     it 'formats Simplecov results files' do
-      results = CoverallsMulti::Formatter::Simplecov.new.run(@runner.files['ruby'])
+      results = CoverallsMulti::Formatter::Simplecov.new.run(@runner.files['simplecov'])
       # TODO: have this compare against an existing output file
       expect(results).to be_a(Array)
     end

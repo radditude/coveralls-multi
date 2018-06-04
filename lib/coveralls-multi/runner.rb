@@ -29,7 +29,7 @@ module CoverallsMulti
       # we can use the js result as the foundation for now
       # since it already has service_name and service_job_id thanks to coveralls-lcov
       js_result = CoverallsMulti::Formatter.parse_json(@files['javascript'])
-      ruby_result = CoverallsMulti::Formatter::Simplecov.new.run(@files['ruby'])
+      ruby_result = formatter('simplecov').new.run(@files['simplecov'])
       # add Ruby coverage
       js_result['source_files'].concat ruby_result
       merged = js_result
@@ -38,6 +38,13 @@ module CoverallsMulti
       CoverallsMulti::Formatter.add_travis_keys(merged)
       puts 'All files merged and formatted'
       merged
+    end
+
+    def formatter(string)
+      string_klass = "CoverallsMulti::Formatter::#{string.capitalize}"
+      Object.const_get(string_klass)
+    rescue NameError => e
+      raise e, "Could not find formatter #{string_klass}"
     end
   end
 end
