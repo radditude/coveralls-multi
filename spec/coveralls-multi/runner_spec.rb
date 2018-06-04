@@ -55,4 +55,27 @@ RSpec.describe CoverallsMulti::Runner do
       end
     end
   end
+
+  describe '.write_to_file' do
+    it 'writes merged coverage to a file if debug mode is on' do
+      yml = { 'debug_mode' => 'true' }
+      allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
+      allow(File).to receive(:write).and_return(true)
+
+      expect(@runner.write_to_file(@runner.merge)).to be true
+    end
+
+    it 'does not write to file if debug mode is off' do
+      yml = { 'debug_mode' => 'false' }
+      allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
+      allow(File).to receive(:write).and_return(true)
+
+      expect(@runner.write_to_file(@runner.merge)).to be_falsey
+    end
+  end
+
+  describe '.formatter' do
+    it 'chooses formatter dynamically' do
+    end
+  end
 end

@@ -42,10 +42,8 @@ RSpec.describe CoverallsMulti::Formatter do
   end
 
   # TODO: convert lcov results using the coveralls-lcov gem in the tool itself
-  # it 'converts lcov results files' do
-  # end
+  it 'converts lcov results files'
 
   # TODO: what do elixir coverage files look like?
-  # it 'formats elixir coverage files' do
-  # end
+  it 'formats elixir coverage files'
 end

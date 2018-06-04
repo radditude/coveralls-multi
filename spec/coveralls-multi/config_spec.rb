@@ -43,7 +43,7 @@ RSpec.describe CoverallsMulti::Config do
     end
 
     it 'raises an error if no coveralls-multi config is found' do
-      yml = {'repo_token' => 'xyz'}
+      yml = { 'repo_token' => 'xyz' }
       allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
       expect do
         CoverallsMulti::Config.files
@@ -51,6 +51,19 @@ RSpec.describe CoverallsMulti::Config do
     end
   end
 
-  # it 'takes a flag to write output to a file' do
-  # end
+  describe '.debug_mode' do
+    it 'returns false if debug_mode is not specified in yaml config' do
+      yml = { 'a_key' => 'a_value' }
+
+      allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
+      expect(CoverallsMulti::Config.debug_mode).to be_falsey
+    end
+
+    it 'returns true if debug_mode is true' do
+      yml = { 'debug_mode' => 'true' }
+
+      allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
+      expect(CoverallsMulti::Config.debug_mode).to be_truthy
+    end
+  end
 end

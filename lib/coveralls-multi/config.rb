@@ -12,6 +12,10 @@ module CoverallsMulti
         yml
       end
 
+      def debug_mode
+        yaml_config['debug_mode'] && yaml_config['debug_mode'] == 'true'
+      end
+
       def yaml_config
         raise "Couldn't find config file" unless configuration_path && File.exist?(configuration_path)
 
