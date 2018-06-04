@@ -1,13 +1,12 @@
 require 'json'
 require 'coveralls'
-require 'pry'
 
 module CoverallsMulti
   class Runner
     attr_accessor :files
 
     def initialize
-      @files = CoverallsMulti::Config.new.files
+      @files = CoverallsMulti::Config.files
     end
 
     def start
@@ -19,7 +18,7 @@ module CoverallsMulti
     end
 
     def write_to_file(payload)
-      output_file_path = "#{CoverallsMulti::Config.root}/coverage/coveralls.json"
+      output_file_path = "#{CoverallsMulti::Config.root}/coveralls.json"
       puts "Writing results to #{output_file_path}"
       File.write(output_file_path, JSON.pretty_generate(payload))
     end

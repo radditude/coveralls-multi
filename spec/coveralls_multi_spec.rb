@@ -10,7 +10,7 @@ RSpec.describe CoverallsMulti do
   }
 
   before do
-    allow_any_instance_of(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
+    allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
     @runner = CoverallsMulti::Runner.new
   end
 
