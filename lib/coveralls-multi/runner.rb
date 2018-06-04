@@ -26,16 +26,25 @@ module CoverallsMulti
     end
 
     def merge
-      js_result = formatter('lcov').new.run(@files['lcov'])
-      ruby_result = formatter('simplecov').new.run(@files['simplecov'])
-      # add Ruby coverage
-      source_files = js_result.concat ruby_result
+      source_files = format_all_coverage_files
       merged = { 'source_files' => source_files }
-      # create md5 source digests for all files
       CoverallsMulti::Formatter.add_source_digests(merged)
       CoverallsMulti::Formatter.add_travis_keys(merged)
+
       puts 'All files merged and formatted'
       merged
+    end
+
+    def format_all_coverage_files
+      type_array = @files.keys
+      formatted_array = []
+
+      type_array.each do |type|
+        result = formatter(type).new.run(@files[type])
+        formatted_array.concat result
+      end
+
+      formatted_array
     end
 
     def formatter(string)
