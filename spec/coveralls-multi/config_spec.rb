@@ -60,7 +60,7 @@ RSpec.describe CoverallsMulti::Config do
     end
 
     it 'returns true if debug_mode is true' do
-      yml = { 'debug_mode' => 'true' }
+      yml = { 'debug_mode' => true }
 
       allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
       expect(CoverallsMulti::Config.debug_mode).to be_truthy

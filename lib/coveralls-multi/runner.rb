@@ -21,7 +21,7 @@ module CoverallsMulti
       return unless CoverallsMulti::Config.debug_mode
 
       output_file_path = "#{CoverallsMulti::Config.root}/coveralls.json"
-      puts "Writing results to #{output_file_path}"
+      puts "Debug mode on - writing results to #{output_file_path}"
       File.write(output_file_path, JSON.pretty_generate(payload))
     end
 

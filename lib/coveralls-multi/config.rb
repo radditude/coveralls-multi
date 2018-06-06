@@ -13,7 +13,7 @@ module CoverallsMulti
       end
 
       def debug_mode
-        yaml_config['debug_mode'] && yaml_config['debug_mode'] == 'true'
+        yaml_config['debug_mode'] && yaml_config['debug_mode'] == true
       end
 
       def yaml_config
