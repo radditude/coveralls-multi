@@ -29,7 +29,7 @@ RSpec.describe CoverallsMulti::Validator do
       validator = CoverallsMulti::Validator.new(invalid_payload)
 
       expect { validator.run }.to raise_error(
-        'Missing required top-level key(s) - repo_token, service_name, source_files',
+        'Missing required top-level key - source_files',
       )
     end
 

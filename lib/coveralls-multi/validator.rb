@@ -4,7 +4,7 @@ module CoverallsMulti
   # checks that a payload is valid before sending to Coveralls
   class Validator
     attr_accessor :payload
-    TOP_LEVEL_KEYS = %w[repo_token service_name source_files].freeze
+    TOP_LEVEL_KEYS = %w[source_files].freeze
     SOURCE_FILE_KEYS = %w[name source_digest coverage source].freeze
 
     def initialize(payload)
@@ -26,7 +26,7 @@ module CoverallsMulti
       raise 'Payload is empty!' if !@payload || @payload.empty?
       raise 'Payload should be a hash!' unless @payload.is_a?(Hash)
 
-      check_required_keys(TOP_LEVEL_KEYS, 'Missing required top-level key(s)')
+      check_required_keys(TOP_LEVEL_KEYS, 'Missing required top-level key')
       @payload['source_files'].each do |src_file|
         check_required_keys(
           SOURCE_FILE_KEYS, 'Missing required source file key(s)', src_file

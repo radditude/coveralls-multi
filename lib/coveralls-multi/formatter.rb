@@ -21,14 +21,6 @@ module CoverallsMulti
         merged_files
       end
 
-      def add_travis_keys(payload)
-        payload['service_name'] = 'travis-pro'
-        payload['repo_token'] = ENV['COVERALLS_REPO_TOKEN'] || ''
-        payload.delete 'service_job_id'
-        puts 'Added Travis keys'
-        payload
-      end
-
       def parse_json(path)
         JSON.parse(IO.read("#{CoverallsMulti::Config.root}/#{path}"))
       rescue StandardError => e

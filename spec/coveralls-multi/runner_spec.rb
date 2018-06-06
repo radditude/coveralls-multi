@@ -40,13 +40,6 @@ RSpec.describe CoverallsMulti::Runner do
       expect(results).to be_a(Hash)
     end
 
-    it 'adds travis keys' do
-      results = @runner.merge
-
-      expect(results['service_name']).to eq('travis-pro')
-      expect(results['repo_token']).to be_a(String)
-    end
-
     it 'adds source digests' do
       results = @runner.merge
 

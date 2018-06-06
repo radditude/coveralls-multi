@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    coveralls-multi (0.1.0)
+    coveralls-multi (1.0.0)
       coveralls (~> 0.8.21)
       coveralls-lcov (~> 1.5.1)
 
