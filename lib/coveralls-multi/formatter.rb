@@ -2,6 +2,7 @@ require 'digest/md5'
 require 'json'
 
 # require individual formatters here
+require 'coveralls-multi/formatters/excoveralls'
 require 'coveralls-multi/formatters/lcov'
 require 'coveralls-multi/formatters/simplecov'
 

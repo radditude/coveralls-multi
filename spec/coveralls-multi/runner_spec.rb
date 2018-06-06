@@ -4,6 +4,7 @@ RSpec.describe CoverallsMulti::Runner do
       'multi' => {
         'simplecov' => 'spec/fixtures/.resultset.json',
         'lcov' => 'spec/fixtures/lcov.info',
+        'excoveralls' => 'spec/fixtures/excoveralls.json',
       },
     }
   end
@@ -51,7 +52,7 @@ RSpec.describe CoverallsMulti::Runner do
 
   describe '.write_to_file' do
     it 'writes merged coverage to a file if debug mode is on' do
-      yml = { 'debug_mode' => 'true' }
+      yml = { 'debug_mode' => true }
       allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
       allow(File).to receive(:write).and_return(true)
 

@@ -4,6 +4,7 @@ RSpec.describe CoverallsMulti::Formatter do
       'multi' => {
         'simplecov' => 'spec/fixtures/.resultset.json',
         'lcov' => 'spec/fixtures/lcov.info',
+        'excoveralls' => 'spec/fixtures/excoveralls.json',
       },
     }
   end
@@ -64,5 +65,18 @@ RSpec.describe CoverallsMulti::Formatter do
   end
 
   # TODO: what do elixir coverage files look like?
-  it 'formats elixir coverage files'
+  describe '::Excoveralls' do
+    it 'converts excoveralls json results files' do
+      results = CoverallsMulti::Formatter::Excoveralls.new.run(@runner.files['excoveralls'])
+      expect(results).to be_a(Array)
+    end
+
+    it 'throws an error if conversion was not successful' do
+      path = 'fake/path/to/nothing'
+
+      expect do
+        CoverallsMulti::Formatter::Excoveralls.new.run(path)
+      end.to raise_error "There was a problem converting the excoveralls file at #{path}"
+    end
+  end
 end

@@ -1,0 +1,62 @@
+{
+  "source_files": [
+    {
+      "name": "lib/path/to/something.ex",
+      "source": "defmodule MyApp.Something do\n  @moduledoc \"\"\"\n  Something model\n  \"\"\"\n  use Ecto.Schema\n  import Ecto.{Query, Changeset}, warn: false\n\n  schema \"somethings\" do\n    field :code, :string\n    timestamps()\n\n    has_many(:users, MyApp.User)\n  end\n\n  @doc \"\"\"\n  Builds a changeset based on the `struct` and `params`.\n  \"\"\"\n  def changeset(struct, params \\\\ %{}) do\n    struct\n    |> cast(params, [:code])\n    |> validate_required([:code])\n  end\nend",
+      "coverage": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        41,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        5,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "lib/path/to/another.ex",
+      "source": "defmodule MyApp.Another do\n  @moduledoc \"\"\"\n    Another Model\n  \"\"\"\n  use Ecto.Schema\n  import Ecto.Changeset\n  alias MyApp.Another\n\n  @primary_key false\n  schema \"anothers\" do\n    field :status, :string\n    field :user_id, :id, primary_key: true\n  end\n\n  @doc false\n  def changeset(%Something{} = something, attrs) do\n    something\n    |> cast(attrs, [:status, :user_id, :something_id])\n    |> unique_constraint(:something_constraint, name: :something_user_id)\n    |> validate_required([:status, :user_id, :something_id])\n  end\nend",
+      "coverage": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        17,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        6,
+        null,
+        null
+      ]
+    }
+  ]
+}
