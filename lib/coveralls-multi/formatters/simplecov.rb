@@ -16,14 +16,16 @@ module CoverallsMulti
 
         source_files = []
         begin
-          file['RSpec']['coverage'].each do |filename, coverage|
-            properties = {}
+          file.keys.each do |test_suite_key|
+            file[test_suite_key]['coverage'].each do |filename, coverage|
+              properties = {}
 
-            properties['source'] = File.open(filename, 'rb:utf-8').read
-            properties['name'] = format_short_filename(filename)
-            properties['coverage'] = coverage
+              properties['source'] = File.open(filename, 'rb:utf-8').read
+              properties['name'] = format_short_filename(filename)
+              properties['coverage'] = coverage
 
-            source_files << properties
+              source_files << properties
+            end
           end
         rescue StandardError => e
           raise e, "There was a problem formatting the simplecov report at #{file_path}"

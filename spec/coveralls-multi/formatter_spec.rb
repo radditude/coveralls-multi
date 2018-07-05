@@ -40,6 +40,18 @@ RSpec.describe CoverallsMulti::Formatter do
       expect(results).to be_a(Array)
     end
 
+    it 'formats Simplecov results files with multiple suites' do
+      results = CoverallsMulti::Formatter::Simplecov.new.run('spec/fixtures/simplecov-multisuite.json')
+
+      results_files = results.map { |result| result['name'] }.sort
+      expect(results).to be_a(Array)
+      expect(results_files).to eq([
+        'spec/fixtures/dummy_ruby1.rb',
+        'spec/fixtures/dummy_ruby1.rb',
+        'spec/fixtures/dummy_ruby2.rb'
+      ])
+    end
+
     it 'throws an error if there is a problem' do
       path = 'spec/fixtures/.invalidresultset.json'
 
