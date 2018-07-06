@@ -1,5 +1,6 @@
 
-![Travis](https://img.shields.io/travis/radditude/coveralls-multi/master.svg)
+
+[![coveralls-multi](https://img.shields.io/gem/v/coveralls-multi.svg)](https://rubygems.org/gems/coveralls-multi) [![Travis](https://img.shields.io/travis/radditude/coveralls-multi/master.svg)](https://travis-ci.org/radditude/coveralls-multi)
 
 # CoverallsMulti
 
