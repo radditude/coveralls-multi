@@ -1,3 +1,6 @@
+
+![Travis](https://img.shields.io/travis/radditude/coveralls-multi/master.svg)
+
 # CoverallsMulti
 
 CoverallsMulti is a Coveralls client with support for multi-language repos. Specify the paths to your coverage output files in `.coveralls.yml`, and CoverallsMulti will handle formatting them, merging them into one big superfile, and posting the result to Coveralls.io.

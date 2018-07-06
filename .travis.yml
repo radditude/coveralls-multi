@@ -1,5 +1,13 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.5.1
+- 2.5.1
 before_install: gem install bundler -v 1.16.1
+script: bundle exec rspec
+deploy:
+  provider: rubygems
+  api_key:
+    secure: XV1Y9V4F/V2NYUq/lJzYWllDkhXSXxEs+RNNWaoDfWadXDYk33pqJ+gyVe0+kr38pvCZKghAxgl7kgkdpASdpGtWRF+au+LnLpLwWn6utpaXaPso9paAwni3KslGbB+V8MNjVQGDp+I226OGdDsr4GbXoJwkJmoj9ub6YBmZpwsbBuwxSO+gNOZodTvgerD/YnYCI3FcN1NIcjnxfibBdC1+oA25vQAbTzyLo5dp8RLiNj0p37hBu2qV6Yygp1NlVLOGYEmOlmgo7/NTwU5IUPWC1/+EN5xUmrUs0LcTV9thRCsX1yMw/T5v9H2NO57soRzUymi3pyQShmpR+zzJiDZPtsV/LA8rb5CHkboiwMcqKSuE7fV8MHJj0T5MtuFXW20Mxj5oFi6UQwLm6JYmlv28pZ6zt+gQ3Xddq/olXJkGJWPX9xbgZNT1koeP0UjhjnOc2+NSETIdMPFaPdzDqB0yatPGge0Xda9OR5MyNcstJgZeDHQduERFabdgmS4c0Vz+JDz+S59e2INqbbc7DuNXibl+hLab5o4cRuE8zgGvqrOKJOYEQQWnxKSUB0pyDkKyrJoFR2GFCgZSAVY/BWOHVthfOFNrkjz2wuxjoX1UfrA4Wdj/2ooUvfE+JYrQyESopu+wLU8RiE8uYNC/owEPymvTmKsF0SXVUl6gp8I=
+  on:
+    branch: master
+    tags: true
