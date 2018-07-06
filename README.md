@@ -4,15 +4,21 @@ CoverallsMulti is a Coveralls client with support for multi-language repos. Spec
 
 ### Currently supported:
 
+#### Languages & Output Formats
+
+| *Language* | *Coverage tool* | *Config key* |
+|----------- | --------------- | ------------ |
+| Elixir | [ExCoveralls](https://github.com/parroty/excoveralls) (JSON output) | `excoveralls` |
+| JavaScript | [nyc](https://github.com/istanbuljs/nyc), or any tool that can output an lcov file | `lcov` |
+| Ruby | [SimpleCov](https://github.com/colszowka/simplecov) | `simplecov` |
+
 #### CI Providers
+
 - TravisCI
 
-#### Languages/Output Formats
-- Ruby (SimpleCov)
-- JavaScript (lcov)
-
 #### Coming Soon
-- Elixir
+
+Have another language, tool, or CI provider you'd like to see supported? [Let me know](https://github.com/radditude/coveralls-multi/issues/new).
 
 ## Installation
 
@@ -32,9 +38,9 @@ Or install it yourself as:
 
 ## Usage
 
-Set up coverage measurement for each of the languages in your repo (TODO: add links to setup instructions for supported languages).
+1. Set up coverage measurement for each of the languages in your repo.
 
-Once you know where the output files will go, add the output type and path to `.coveralls.yml`. Example:
+2. Once you know where the output files will go, set up your `.coveralls.yml` with the appropriate keys and paths like so (see supported languages above for more details on the supported config keys):
 
 ```
 service_name: travis-ci
@@ -42,9 +48,10 @@ repo_token: [REPO_TOKEN]
 multi:
   simplecov: coverage/.resultset.json
   lcov: coverage/lcov.info
+  excoveralls: cover/excoveralls.json
 ```
 
-Then run `coveralls-multi` to merge the output files and send them to Coveralls. In a CI environment, run `coveralls-multi` after you run your test commands.
+3. Run `coveralls-multi` to merge the output files and send them to Coveralls. In a CI environment, set up `coveralls-multi` as an final step after you run your test commands.
 
 ## Development
 
@@ -52,7 +59,7 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-TODO: more detailed instructions for adding a new formatter
+TODO: add better contributing instructions (especially for adding a new formatter)
 
 ## Contributing
 
