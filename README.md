@@ -1,6 +1,6 @@
 
 
-[![coveralls-multi](https://img.shields.io/gem/v/coveralls-multi.svg)](https://rubygems.org/gems/coveralls-multi) [![Travis](https://img.shields.io/travis/radditude/coveralls-multi/master.svg)](https://travis-ci.org/radditude/coveralls-multi)
+[![coveralls-multi](https://img.shields.io/gem/v/coveralls-multi.svg)](https://rubygems.org/gems/coveralls-multi) [![Travis](https://img.shields.io/travis/radditude/coveralls-multi/master.svg)](https://travis-ci.org/radditude/coveralls-multi) [![Coverage Status](https://coveralls.io/repos/github/radditude/coveralls-multi/badge.svg)](https://coveralls.io/github/radditude/coveralls-multi)
 
 # CoverallsMulti
 

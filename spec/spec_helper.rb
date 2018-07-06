@@ -1,6 +1,6 @@
-require 'simplecov'
+require 'coveralls'
 
-SimpleCov.start
+Coveralls.wear!
 
 require 'bundler/setup'
 require 'coveralls-multi'
