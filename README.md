@@ -4,7 +4,7 @@
 
 # CoverallsMulti
 
-CoverallsMulti is a Coveralls client with support for multi-language repos. Specify the paths to your coverage output files in `.coveralls.yml`, and CoverallsMulti will handle formatting them, merging them into one big superfile, and posting the result to Coveralls.io.
+CoverallsMulti is a Coveralls client with support for multi-language repos. Once you've set up coverage tools for all the languages in your repo, specify the paths to your coverage output files in `.coveralls.yml` and let CoverallsMulti handle formatting them, merging them into one big superfile, and posting the result to Coveralls.io.
 
 ### Currently supported:
 
@@ -42,9 +42,9 @@ Or install it yourself as:
 
 ## Usage
 
-1. Set up coverage measurement for each of the languages in your repo.
+0. Set up coverage measurement for each language. Coveralls-multi is only concerned with formatting & posting the output files, so choice of tooling is up to you.
 
-2. Once you know where the output files will go, set up your `.coveralls.yml` with the appropriate keys and paths like so (see supported languages above for more details on the supported config keys):
+1. Once you know where the output files will go, set up your `.coveralls.yml` with the appropriate keys and paths like so (see supported languages above for more details on the supported config keys):
 
 ```
 service_name: travis-ci
@@ -55,7 +55,7 @@ multi:
   excoveralls: cover/excoveralls.json
 ```
 
-3. Run `coveralls-multi` to merge the output files and send them to Coveralls. In a CI environment, set up `coveralls-multi` as an final step after you run your test commands.
+2. Run `coveralls-multi` to merge the output files and send them to Coveralls. In a CI environment, you can run `coveralls-multi` as an final step after you run your test commands.
 
 ## Development
 
