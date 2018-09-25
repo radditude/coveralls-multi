@@ -57,6 +57,8 @@ multi:
 
 2. Run `coveralls-multi` to merge the output files and send them to Coveralls. In a CI environment, you can run `coveralls-multi` as an final step after you run your test commands.
 
+_Note for ExCoveralls:_ Currently, formatting will break if the ExCoveralls output directory is called something other than the default `cover`. You don't need to worry about this unless you've changed the default `output_dir` in your ExCoveralls config.
+
 ## Troubleshooting
 
 Debug mode will save and output the merged file so you can take a closer look. To enable debug mode, add the following line to `.coveralls.yml`:
