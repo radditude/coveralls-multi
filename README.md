@@ -57,6 +57,14 @@ multi:
 
 2. Run `coveralls-multi` to merge the output files and send them to Coveralls. In a CI environment, you can run `coveralls-multi` as an final step after you run your test commands.
 
+## Troubleshooting
+
+Debug mode will save and output the merged file so you can take a closer look. To enable debug mode, add the following line to `.coveralls.yml`:
+
+```
+debug_mode: true
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
