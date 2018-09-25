@@ -1,4 +1,5 @@
 require 'json'
+require 'pathname'
 
 module CoverallsMulti
   class Formatter
@@ -7,7 +8,17 @@ module CoverallsMulti
     class Excoveralls
       def run(file_path)
         file = CoverallsMulti::Formatter.parse_json(file_path)
-        file['source_files']
+        # ExCoveralls uses paths relative to the elixir app root, which breaks things
+        # if the elixir app is in a subdirectory of the repo as a whole.
+        # We grab the subdirectory if it exists...
+        subdirectory = file_path.split('cover')[0]
+        source_files = file['source_files'].map do |source_file|
+          path = source_file['name']
+          # ...and prepend it to the file path
+          source_file['name'] = subdirectory + path
+          source_file
+        end
+        source_files
       rescue StandardError => e
         raise e, "There was a problem converting the excoveralls file at #{file_path}"
       end
