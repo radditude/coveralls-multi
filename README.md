@@ -1,5 +1,3 @@
-
-
 [![coveralls-multi](https://img.shields.io/gem/v/coveralls-multi.svg)](https://rubygems.org/gems/coveralls-multi) [![Travis](https://img.shields.io/travis/radditude/coveralls-multi/master.svg)](https://travis-ci.org/radditude/coveralls-multi) [![Coverage Status](https://coveralls.io/repos/github/radditude/coveralls-multi/badge.svg)](https://coveralls.io/github/radditude/coveralls-multi)
 
 # CoverallsMulti
@@ -10,11 +8,11 @@ CoverallsMulti is a Coveralls client with support for multi-language repos. Once
 
 #### Languages & Output Formats
 
-| *Language* | *Coverage tool* | *Config key* |
-|----------- | --------------- | ------------ |
-| Elixir | [ExCoveralls](https://github.com/parroty/excoveralls) (JSON output) | `excoveralls` |
-| JavaScript | [nyc](https://github.com/istanbuljs/nyc), or any tool that can output an lcov file | `lcov` |
-| Ruby | [SimpleCov](https://github.com/colszowka/simplecov) | `simplecov` |
+| _Language_ | _Coverage tool_                                                                    | _Config key_  |
+| ---------- | ---------------------------------------------------------------------------------- | ------------- |
+| Elixir     | [ExCoveralls](https://github.com/parroty/excoveralls) (JSON output)                | `excoveralls` |
+| JavaScript | [nyc](https://github.com/istanbuljs/nyc), or any tool that can output an lcov file | `lcov`        |
+| Ruby       | [SimpleCov](https://github.com/colszowka/simplecov)                                | `simplecov`   |
 
 #### CI Providers
 
@@ -22,7 +20,7 @@ CoverallsMulti is a Coveralls client with support for multi-language repos. Once
 
 #### Coming Soon
 
-Have another language, tool, or CI provider you'd like to see supported? [Let me know](https://github.com/radditude/coveralls-multi/issues/new).
+Have another language, tool, or CI provider you'd like to see supported? [File an issue](https://github.com/radditude/coveralls-multi/issues/new).
 
 ## Installation
 
