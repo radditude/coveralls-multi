@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
   spec.executables   = 'coveralls-multi'
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'coveralls', '0.8.24'
   spec.add_dependency 'coveralls-lcov', '~> 1.5.1'
   spec.add_dependency 'httparty', '~> 0.16.4'
 
