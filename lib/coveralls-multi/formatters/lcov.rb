@@ -13,7 +13,9 @@ module CoverallsMulti
         # HACK: stringify keys without iterating over the whole array of hashes
         JSON.parse(JSON.dump(file[:source_files]))
       rescue StandardError, SystemExit => e
-        raise e, "There was a problem converting the lcov file at #{file_path}"
+        puts "[CoverallsMulti] There was a problem converting the lcov file at #{file_path}."
+        puts '[CoverallsMulti] Make sure the file exists.'
+        raise e
       end
     end
   end

@@ -24,7 +24,7 @@ module CoverallsMulti
       # TODO: figure out error handling given httparty
       case response
       when Net::HTTPServiceUnavailable
-        puts 'Coveralls API timeout occured, but data should still be processed'
+        puts '[CoverallsMulti] Coveralls API timeout occured, but data should still be processed'
       end
     end
 

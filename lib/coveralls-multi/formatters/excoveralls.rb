@@ -21,7 +21,9 @@ module CoverallsMulti
         end
         source_files
       rescue StandardError => e
-        raise e, "There was a problem converting the excoveralls file at #{file_path}"
+        puts "[CoverallsMulti] There was a problem converting the excoveralls file at #{file_path}."
+        puts '[CoverallsMulti] Make sure the file exists.'
+        raise e
       end
     end
   end

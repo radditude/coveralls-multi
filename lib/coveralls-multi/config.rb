@@ -5,7 +5,7 @@ module CoverallsMulti
   class Config
     class << self
       def yaml_config
-        raise "Couldn't find config file" unless configuration_path && File.exist?(configuration_path)
+        raise "[CoverallsMulti] Couldn't find config file" unless configuration_path && File.exist?(configuration_path)
 
         YAML.load_file(configuration_path)
       end
@@ -13,7 +13,7 @@ module CoverallsMulti
       def files
         yml = yaml_config['multi']
 
-        raise "Couldn't find coveralls-multi configuration in .coveralls.yml" unless yml
+        raise "[CoverallsMulti] Couldn't find multi configuration in .coveralls.yml" unless yml
 
         yml
       end
@@ -41,7 +41,7 @@ module CoverallsMulti
       def api_config
         config = {
           git: git_info,
-          repo_token: ENV['COVERALLS_REPO_TOKEN'] || yml['repo_token'] || yml['repo_secret_token'],
+          repo_token: ENV['COVERALLS_REPO_TOKEN'] || yaml_config['repo_token'] || yaml_config['repo_secret_token'],
         }
 
         add_ci_env(config)
@@ -58,7 +58,7 @@ module CoverallsMulti
           }
         end
       rescue StandardError => e
-        puts 'Problem gathering git info:'
+        puts '[Coveralls Multi] Problem gathering git info:'
         puts e.to_s
         nil
       end
