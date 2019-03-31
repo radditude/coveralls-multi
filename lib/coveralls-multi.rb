@@ -1,3 +1,4 @@
+require 'coveralls-multi/api'
 require 'coveralls-multi/config'
 require 'coveralls-multi/formatter'
 require 'coveralls-multi/runner'
