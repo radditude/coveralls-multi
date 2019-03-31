@@ -30,6 +30,14 @@ module CoverallsMulti
         File.expand_path(File.join(root, '.coveralls.yml')) if root
       end
 
+      def api_domain
+        ENV['COVERALLS_ENDPOINT'] || 'https://coveralls.io'
+      end
+
+      def api_endpoint
+        "#{api_domain}/api/v1/jobs"
+      end
+
       def api_config
         config = {
           git: git_info,
