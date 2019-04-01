@@ -11,19 +11,9 @@ module CoverallsMulti
 
     def start
       payload = merge
-      write_to_file(payload)
       puts '[CoverallsMulti] Validating payload'
       valid = CoverallsMulti::Validator.new(payload).run
       CoverallsMulti::API.post_json(payload) if valid
-    end
-
-    # TODO: make this happen in the api class so it can write the full config and everything
-    def write_to_file(payload)
-      return unless CoverallsMulti::Config.debug_mode
-
-      output_file_path = "#{CoverallsMulti::Config.root}/coveralls.json"
-      puts "[CoverallsMulti] Debug mode on - writing results to #{output_file_path}"
-      File.write(output_file_path, JSON.pretty_generate(payload))
     end
 
     def merge

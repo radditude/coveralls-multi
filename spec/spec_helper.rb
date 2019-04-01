@@ -1,10 +1,19 @@
 require 'coveralls'
+require 'simplecov'
 
-Coveralls.wear!
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter,
+]
+
+SimpleCov.start do
+  add_filter "/spec/"
+end
 
 require 'bundler/setup'
 require 'coveralls-multi'
 require 'json'
+require 'webmock/rspec'
 
 simplecov = {
   'RSpec' => {

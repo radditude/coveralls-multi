@@ -66,37 +66,6 @@ RSpec.describe CoverallsMulti::Runner do
     end
   end
 
-  describe '.write_to_file' do
-    it 'writes merged coverage to a file if debug mode is on' do
-      path = Dir.pwd + '/coveralls.json'
-
-      expect(STDOUT).to receive(:puts).and_return(
-        '[CoverallsMulti] Added source digests',
-        '[CoverallsMulti] All coverage files merged and formatted',
-        "[CoverallsMulti] Debug mode on - writing results to #{path}",
-      )
-
-      yml = { 'debug_mode' => true }
-      allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
-      allow(File).to receive(:write).and_return(true)
-
-      expect(@runner.write_to_file(@runner.merge)).to be true
-    end
-
-    it 'does not write to file if debug mode is off' do
-      expect(STDOUT).to receive(:puts).and_return(
-        '[CoverallsMulti] Added source digests',
-        '[CoverallsMulti] All coverage files merged and formatted',
-      )
-
-      yml = { }
-      allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
-      allow(File).to receive(:write).and_return(true)
-
-      expect(@runner.write_to_file(@runner.merge)).to be_falsey
-    end
-  end
-
   describe '.formatter' do
     it 'gets the correct constant from a string' do
       expect(@runner.formatter('simplecov')).to eq(CoverallsMulti::Formatter::Simplecov)
