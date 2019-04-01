@@ -12,6 +12,8 @@ RSpec.describe CoverallsMulti::Runner do
   before do
     allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
     @runner = CoverallsMulti::Runner.new
+    @puts_one = '[CoverallsMulti] Added source digests'
+    @puts_two = '[CoverallsMulti] All coverage files merged and formatted'
   end
 
   describe '.initialize' do
@@ -29,8 +31,8 @@ RSpec.describe CoverallsMulti::Runner do
   describe '.start' do
     it 'calls Coveralls::API.post_json' do
       expect(STDOUT).to receive(:puts).and_return(
-        '[CoverallsMulti] Added source digests',
-        '[CoverallsMulti] All coverage files merged and formatted',
+        @puts_one,
+        @puts_two,
         '[CoverallsMulti] Validating payload',
       )
 
@@ -43,8 +45,8 @@ RSpec.describe CoverallsMulti::Runner do
   describe '.merge' do
     it 'merges two formatted files' do
       expect(STDOUT).to receive(:puts).and_return(
-        '[CoverallsMulti] Added source digests',
-        '[CoverallsMulti] All coverage files merged and formatted',
+        @puts_one,
+        @puts_two,
       )
 
       results = @runner.merge
@@ -54,8 +56,8 @@ RSpec.describe CoverallsMulti::Runner do
 
     it 'adds source digests' do
       expect(STDOUT).to receive(:puts).and_return(
-        '[CoverallsMulti] Added source digests',
-        '[CoverallsMulti] All coverage files merged and formatted',
+        @puts_one,
+        @puts_two,
       )
 
       results = @runner.merge

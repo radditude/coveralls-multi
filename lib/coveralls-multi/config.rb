@@ -57,10 +57,6 @@ module CoverallsMulti
             remotes: git_remotes,
           }
         end
-      rescue StandardError => e
-        puts '[Coveralls Multi] Problem gathering git info:'
-        puts e.to_s
-        nil
       end
 
       def git_head
@@ -86,7 +82,7 @@ module CoverallsMulti
       end
 
       def add_ci_env(config)
-        return add_service_params_for_travis(config, yml ? yml['service_name'] : nil) if ENV['TRAVIS']
+        return add_service_params_for_travis(config, yaml_config[:service_name] || nil) if ENV['TRAVIS']
         return add_service_params_for_circleci(config) if ENV['CIRCLECI']
         return add_service_params_for_semaphore(config) if ENV['SEMAPHORE']
         return add_service_params_for_jenkins(config) if ENV['JENKINS_URL'] || ENV['JENKINS_HOME']
@@ -95,7 +91,7 @@ module CoverallsMulti
         return add_service_params_for_gitlab(config) if ENV['GITLAB_CI']
         return add_service_params_for_coveralls_local(config) if ENV['COVERALLS_RUN_LOCALLY']
 
-        nil
+        config
       end
 
       def add_service_params_for_travis(config, service_name)
@@ -103,6 +99,7 @@ module CoverallsMulti
         config[:service_pull_request] = ENV['TRAVIS_PULL_REQUEST'] unless ENV['TRAVIS_PULL_REQUEST'] == 'false'
         config[:service_name]   = service_name || 'travis-ci'
         config[:service_branch] = ENV['TRAVIS_BRANCH']
+        config
       end
 
       def add_service_params_for_circleci(config)
@@ -111,12 +108,14 @@ module CoverallsMulti
         config[:service_pull_request] = (ENV['CI_PULL_REQUEST'] || '')[/(\d+)$/, 1]
         config[:parallel]             = ENV['CIRCLE_NODE_TOTAL'].to_i > 1
         config[:service_job_number]   = ENV['CIRCLE_NODE_INDEX']
+        config
       end
 
       def add_service_params_for_semaphore(config)
         config[:service_name]         = 'semaphore'
         config[:service_number]       = ENV['SEMAPHORE_BUILD_NUMBER']
         config[:service_pull_request] = ENV['PULL_REQUEST_NUMBER']
+        config
       end
 
       def add_service_params_for_jenkins(config)
@@ -124,6 +123,7 @@ module CoverallsMulti
         config[:service_number] = ENV['BUILD_NUMBER']
         config[:service_branch] = ENV['BRANCH_NAME']
         config[:service_pull_request] = ENV['ghprbPullId']
+        config
       end
 
       def add_service_params_for_appveyor(config)
@@ -133,6 +133,7 @@ module CoverallsMulti
         config[:commit_sha] = ENV['APPVEYOR_REPO_COMMIT']
         repo_name = ENV['APPVEYOR_REPO_NAME']
         config[:service_build_url] = format('https://ci.appveyor.com/project/%s/build/%s', repo_name, config[:service_number])
+        config
       end
 
       def add_service_params_for_tddium(config)
@@ -142,6 +143,7 @@ module CoverallsMulti
         config[:service_pull_request] = ENV['TDDIUM_PR_ID']
         config[:service_branch]       = ENV['TDDIUM_CURRENT_BRANCH']
         config[:service_build_url]    = "https://ci.solanolabs.com/reports/#{ENV['TDDIUM_SESSION_ID']}"
+        config
       end
 
       def add_service_params_for_gitlab(config)
@@ -150,12 +152,14 @@ module CoverallsMulti
         config[:service_job_id]       = ENV['CI_BUILD_ID']
         config[:service_branch]       = ENV['CI_BUILD_REF_NAME']
         config[:commit_sha]           = ENV['CI_BUILD_REF']
+        config
       end
 
       def add_service_params_for_coveralls_local(config)
         config[:service_job_id]     = nil
-        config[:service_name]       = 'coveralls-ruby'
+        config[:service_name]       = 'coveralls-multi'
         config[:service_event_type] = 'manual'
+        config
       end
 
       def add_standard_service_params_for_generic_ci(config)
@@ -165,6 +169,7 @@ module CoverallsMulti
         config[:service_build_url]    ||= ENV['CI_BUILD_URL']
         config[:service_branch]       ||= ENV['CI_BRANCH']
         config[:service_pull_request] ||= (ENV['CI_PULL_REQUEST'] || '')[/(\d+)$/, 1]
+        config
       end
     end
   end
