@@ -21,16 +21,22 @@ RSpec.describe CoverallsMulti::Formatter do
 
     it 'raises an error if the file is not found' do
       path = "#{Dir.pwd}/fakefile.json"
+
+      expect(STDOUT).to receive(:puts).and_return("[CoverallsMulti] Could not parse file at #{path}")
+
       expect do
         CoverallsMulti::Formatter.parse_json(path)
-      end.to raise_error "Could not parse file at #{path}"
+      end.to raise_error Errno::ENOENT
     end
 
     it 'raises an error if the file is not valid JSON' do
       path = "#{Dir.pwd}/spec/fixtures/invalid.json"
+
+      expect(STDOUT).to receive(:puts).and_return("[CoverallsMulti] Could not parse file at #{path}")
+
       expect do
         CoverallsMulti::Formatter.parse_json(path)
-      end.to raise_error "Could not parse file at #{path}"
+      end.to raise_error Errno::ENOENT
     end
   end
 
@@ -48,16 +54,21 @@ RSpec.describe CoverallsMulti::Formatter do
       expect(results_files).to eq([
         'spec/fixtures/dummy_ruby1.rb',
         'spec/fixtures/dummy_ruby1.rb',
-        'spec/fixtures/dummy_ruby2.rb'
+        'spec/fixtures/dummy_ruby2.rb',
       ])
     end
 
     it 'throws an error if there is a problem' do
       path = 'spec/fixtures/.invalidresultset.json'
 
+      expect(STDOUT).to receive(:puts).and_return(
+        "[CoverallsMulti] There was a problem formatting the simplecov report file at #{path}",
+        '[CoverallsMulti] Make sure the file exists.',
+      )
+
       expect do
         CoverallsMulti::Formatter::Simplecov.new.run(path)
-      end.to raise_error "There was a problem formatting the simplecov report at #{path}"
+      end.to raise_error Errno::ENOENT
     end
   end
 
@@ -70,13 +81,17 @@ RSpec.describe CoverallsMulti::Formatter do
     it 'throws an error if conversion was not successful' do
       path = 'fake/path/to/nothing'
 
+      expect(STDOUT).to receive(:puts).and_return(
+        "Could not read tracefile: #{path}",
+        "Errno::ENOENT: No such file or directory @ rb_sysopen - #{path}",
+      )
+
       expect do
         CoverallsMulti::Formatter::Lcov.new.run(path)
-      end.to raise_error "There was a problem converting the lcov file at #{path}"
+      end.to raise_error SystemExit
     end
   end
 
-  # TODO: what do elixir coverage files look like?
   describe '::Excoveralls' do
     it 'converts excoveralls json results files' do
       results = CoverallsMulti::Formatter::Excoveralls.new.run(@runner.files['excoveralls'])
@@ -85,10 +100,14 @@ RSpec.describe CoverallsMulti::Formatter do
 
     it 'throws an error if conversion was not successful' do
       path = 'fake/path/to/nothing'
-
+      expect(STDOUT).to receive(:puts).and_return(
+        "[CoverallsMulti] Could not parse file at #{path}",
+        "[CoverallsMulti] There was a problem converting the excoveralls file at #{path}",
+        '[CoverallsMulti] Make sure the file exists.',
+      )
       expect do
         CoverallsMulti::Formatter::Excoveralls.new.run(path)
-      end.to raise_error "There was a problem converting the excoveralls file at #{path}"
+      end.to raise_error Errno::ENOENT
     end
   end
 end

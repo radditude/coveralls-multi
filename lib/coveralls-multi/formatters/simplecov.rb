@@ -28,10 +28,11 @@ module CoverallsMulti
             end
           end
         rescue StandardError => e
-          raise e, "There was a problem formatting the simplecov report at #{file_path}"
+          puts "[CoverallsMulti] There was a problem formatting the simplecov report at #{file_path}."
+          puts '[CoverallsMulti] Make sure the file exists.'
+          raise e
         end
 
-        puts 'SimpleCov report reformatted to prepare for merge'
         source_files
       end
     end

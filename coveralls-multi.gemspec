@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Coveralls client for multi-language repos.'
   spec.description   = 'A configurable Coveralls client that supports merging coverage from multiple languages & test suites.'
-  # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = 'https://github.com/radditude/coveralls-multi'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
@@ -20,12 +20,14 @@ Gem::Specification.new do |spec|
   spec.executables   = 'coveralls-multi'
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'coveralls-revelry', '~> 0.8.23'
   spec.add_dependency 'coveralls-lcov', '~> 1.5.1'
+  spec.add_dependency 'httparty', '~> 0.16.4'
 
   spec.add_development_dependency 'bundler', '~> 1.16'
+  spec.add_development_dependency 'coveralls', '~> 0.8.22'
   spec.add_development_dependency 'pry', '~> 0.11.3'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'simplecov', '~> 0.16.1'
+  spec.add_development_dependency 'webmock', '~> 3.5.1'
 end

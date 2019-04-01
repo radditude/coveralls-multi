@@ -18,14 +18,15 @@ module CoverallsMulti
           src_file['source_digest'] = src_digest
           src_file
         end
-        puts 'Added source digests'
+        puts '[CoverallsMulti] Added source digests'
         merged_files
       end
 
       def parse_json(path)
         JSON.parse(IO.read("#{CoverallsMulti::Config.root}/#{path}"))
       rescue StandardError => e
-        raise e, "Could not parse file at #{path}"
+        puts "[CoverallsMulti] Could not parse file at #{path}"
+        raise e
       end
     end
   end

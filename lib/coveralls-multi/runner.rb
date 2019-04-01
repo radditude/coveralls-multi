@@ -11,18 +11,9 @@ module CoverallsMulti
 
     def start
       payload = merge
-      write_to_file(payload)
-      puts 'Validating payload and pushing to Coveralls'
+      puts '[CoverallsMulti] Validating payload'
       valid = CoverallsMulti::Validator.new(payload).run
-      Coveralls::API.post_json('jobs', payload) if valid
-    end
-
-    def write_to_file(payload)
-      return unless CoverallsMulti::Config.debug_mode
-
-      output_file_path = "#{CoverallsMulti::Config.root}/coveralls.json"
-      puts "Debug mode on - writing results to #{output_file_path}"
-      File.write(output_file_path, JSON.pretty_generate(payload))
+      CoverallsMulti::API.post_json(payload) if valid
     end
 
     def merge
@@ -30,7 +21,7 @@ module CoverallsMulti
       merged = { 'source_files' => source_files }
       CoverallsMulti::Formatter.add_source_digests(merged)
 
-      puts 'All files merged and formatted'
+      puts '[CoverallsMulti] All coverage files merged and formatted'
       merged
     end
 
@@ -50,7 +41,8 @@ module CoverallsMulti
       string_klass = "CoverallsMulti::Formatter::#{string.capitalize}"
       Object.const_get(string_klass)
     rescue NameError => e
-      raise e, "Could not find formatter #{string_klass}"
+      puts "[CoverallsMulti] Could not find formatter #{string_klass}"
+      raise e
     end
   end
 end
