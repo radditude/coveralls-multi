@@ -28,7 +28,7 @@ RSpec.describe CoverallsMulti::Config do
     it 'raises an error if it cannot read the config file' do
       allow(CoverallsMulti::Config).to receive(:root).and_return("#{Dir.pwd}/fake")
 
-      expect { CoverallsMulti::Config.yaml_config }.to raise_error "Couldn't find config file"
+      expect { CoverallsMulti::Config.yaml_config }.to raise_error "[CoverallsMulti] Couldn't find config file"
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe CoverallsMulti::Config do
       allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(yml)
       expect do
         CoverallsMulti::Config.files
-      end.to raise_error "Couldn't find coveralls-multi configuration in .coveralls.yml"
+      end.to raise_error "[CoverallsMulti] Couldn't find multi configuration in .coveralls.yml"
     end
   end
 

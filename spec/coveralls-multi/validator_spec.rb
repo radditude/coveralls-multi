@@ -1,6 +1,10 @@
 RSpec.describe CoverallsMulti::Validator do
   describe '.run' do
     it 'checks that the payload is valid JSON' do
+      expect(STDOUT).to receive(:puts).and_return(
+        '[CoverallsMulti] Payload could not be parsed to JSON!',
+      )
+
       invalid_payload = {}
       invalid_payload['💩'] = "\xC3"
       validator = CoverallsMulti::Validator.new invalid_payload
