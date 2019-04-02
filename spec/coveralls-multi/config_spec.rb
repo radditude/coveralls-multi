@@ -76,7 +76,7 @@ RSpec.describe CoverallsMulti::Config do
           'TRAVIS_JOB_ID' => 1,
           'TRAVIS_BRANCH' => 'test',
         )
-        allow(CoverallsMulti::Config).to receive(:yaml_config).and_return(service_name: 'travis-pro')
+        allow(CoverallsMulti::Config).to receive(:yaml_config).and_return('service_name' => 'travis-pro')
 
         result = CoverallsMulti::Config.add_ci_env({})
 
