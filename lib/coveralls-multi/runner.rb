@@ -1,5 +1,4 @@
 require 'json'
-require 'coveralls'
 
 module CoverallsMulti
   class Runner
