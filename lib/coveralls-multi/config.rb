@@ -82,7 +82,7 @@ module CoverallsMulti
       end
 
       def add_ci_env(config)
-        return add_service_params_for_travis(config, yaml_config[:service_name] || nil) if ENV['TRAVIS']
+        return add_service_params_for_travis(config, yaml_config['service_name'] || nil) if ENV['TRAVIS']
         return add_service_params_for_circleci(config) if ENV['CIRCLECI']
         return add_service_params_for_semaphore(config) if ENV['SEMAPHORE']
         return add_service_params_for_jenkins(config) if ENV['JENKINS_URL'] || ENV['JENKINS_HOME']
