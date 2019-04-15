@@ -99,7 +99,7 @@ module CoverallsMulti
         config[:service_pull_request] = ENV['TRAVIS_PULL_REQUEST'] unless ENV['TRAVIS_PULL_REQUEST'] == 'false'
         config[:service_name]         = service_name || 'travis-ci'
         config[:service_branch]       = ENV['TRAVIS_BRANCH']
-        config[:branch]               = ENV['TRAVIS_BRANCH']
+        config[:git][:branch]         = ENV['TRAVIS_BRANCH']
         config
       end
 
@@ -109,7 +109,7 @@ module CoverallsMulti
         config[:service_pull_request] = (ENV['CI_PULL_REQUEST'] || '')[/(\d+)$/, 1]
         config[:parallel]             = ENV['CIRCLE_NODE_TOTAL'].to_i > 1
         config[:service_job_number]   = ENV['CIRCLE_NODE_INDEX']
-        config[:branch]               = ENV['CIRCLE_BRANCH']
+        config[:git][:branch]         = ENV['CIRCLE_BRANCH']
         config
       end
 
@@ -117,7 +117,7 @@ module CoverallsMulti
         config[:service_name]         = 'semaphore'
         config[:service_number]       = ENV['SEMAPHORE_BUILD_NUMBER']
         config[:service_pull_request] = ENV['PULL_REQUEST_NUMBER']
-        config[:branch]               = ENV['BRANCH_NAME']
+        config[:git][:branch]         = ENV['BRANCH_NAME']
         config
       end
 
@@ -126,7 +126,7 @@ module CoverallsMulti
         config[:service_number]       = ENV['BUILD_NUMBER']
         config[:service_branch]       = ENV['BRANCH_NAME']
         config[:service_pull_request] = ENV['ghprbPullId']
-        config[:branch]               = ENV['GIT_BRANCH'] || ENV['BRANCH_NAME']
+        config[:git][:branch]         = ENV['GIT_BRANCH'] || ENV['BRANCH_NAME']
         config
       end
 
@@ -134,7 +134,7 @@ module CoverallsMulti
         config[:service_name]        = 'appveyor'
         config[:service_number]     = ENV['APPVEYOR_BUILD_VERSION']
         config[:service_branch]     = ENV['APPVEYOR_REPO_BRANCH']
-        config[:branch]             = ENV['APPVEYOR_REPO_BRANCH']
+        config[:git][:branch]       = ENV['APPVEYOR_REPO_BRANCH']
         config[:commit_sha]         = ENV['APPVEYOR_REPO_COMMIT']
         repo_name                   = ENV['APPVEYOR_REPO_NAME']
         config[:service_build_url]  = format('https://ci.appveyor.com/project/%s/build/%s', repo_name, config[:service_number])
@@ -146,7 +146,7 @@ module CoverallsMulti
         config[:service_job_number]   = ENV['CI_BUILD_NAME']
         config[:service_job_id]       = ENV['CI_BUILD_ID']
         config[:service_branch]       = ENV['CI_BUILD_REF_NAME']
-        config[:branch]               = ENV['CI_BUILD_REF_NAME']
+        config[:git][:branch]         = ENV['CI_BUILD_REF_NAME']
         config[:commit_sha]           = ENV['CI_BUILD_REF']
         config
       end

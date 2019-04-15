@@ -78,11 +78,12 @@ RSpec.describe CoverallsMulti::Config do
         )
         allow(CoverallsMulti::Config).to receive(:yaml_config).and_return('service_name' => 'travis-pro')
 
-        result = CoverallsMulti::Config.add_ci_env({})
+        result = CoverallsMulti::Config.add_ci_env({git:{}})
 
         expect(result[:service_name]).to eq('travis-pro')
         expect(result[:service_job_id]).to eq(1)
         expect(result[:service_branch]).to eq('test')
+        expect(result[:git][:branch]).to eq('test')
       end
 
       it 'adds the correct info when service_name is not specified' do
@@ -94,12 +95,12 @@ RSpec.describe CoverallsMulti::Config do
         )
         allow(CoverallsMulti::Config).to receive(:yaml_config).and_return({})
 
-        result = CoverallsMulti::Config.add_ci_env({})
+        result = CoverallsMulti::Config.add_ci_env({git:{}})
 
         expect(result[:service_name]).to eq('travis-ci')
         expect(result[:service_job_id]).to eq(1)
         expect(result[:service_branch]).to eq('test')
-        expect(result[:branch]).to eq('test')
+        expect(result[:git][:branch]).to eq('test')
       end
     end
 
@@ -113,12 +114,12 @@ RSpec.describe CoverallsMulti::Config do
           'CIRCLE_BRANCH' => 'test',
         )
 
-        result = CoverallsMulti::Config.add_ci_env({})
+        result = CoverallsMulti::Config.add_ci_env({git:{}})
 
         expect(result[:service_name]).to eq('circleci')
         expect(result[:service_number]).to eq(1)
         expect(result[:service_job_number]).to eq(2)
-        expect(result[:branch]).to eq('test')
+        expect(result[:git][:branch]).to eq('test')
       end
     end
 
@@ -132,12 +133,12 @@ RSpec.describe CoverallsMulti::Config do
           'BRANCH_NAME' => 'test',
         )
 
-        result = CoverallsMulti::Config.add_ci_env({})
+        result = CoverallsMulti::Config.add_ci_env({git:{}})
 
         expect(result[:service_name]).to eq('semaphore')
         expect(result[:service_number]).to eq(1)
         expect(result[:service_pull_request]).to eq(2)
-        expect(result[:branch]).to eq('test')
+        expect(result[:git][:branch]).to eq('test')
       end
     end
 
@@ -150,12 +151,12 @@ RSpec.describe CoverallsMulti::Config do
           'BRANCH_NAME' => 'test',
         )
 
-        result = CoverallsMulti::Config.add_ci_env({})
+        result = CoverallsMulti::Config.add_ci_env({git:{}})
 
         expect(result[:service_name]).to eq('jenkins')
         expect(result[:service_number]).to eq(1)
         expect(result[:service_branch]).to eq('test')
-        expect(result[:branch]).to eq('test')
+        expect(result[:git][:branch]).to eq('test')
       end
     end
 
@@ -169,11 +170,11 @@ RSpec.describe CoverallsMulti::Config do
           'APPVEYOR_REPO_BRANCH' => 'test'
         )
 
-        result = CoverallsMulti::Config.add_ci_env({})
+        result = CoverallsMulti::Config.add_ci_env({git:{}})
 
         expect(result[:service_name]).to eq('appveyor')
         expect(result[:service_number]).to eq(1)
-        expect(result[:branch]).to eq('test')
+        expect(result[:git][:branch]).to eq('test')
         expect(result[:service_build_url]).to eq('https://ci.appveyor.com/project/test/build/1')
       end
     end
@@ -185,15 +186,15 @@ RSpec.describe CoverallsMulti::Config do
           'GITLAB_CI' => true,
           'CI_BUILD_NAME' => 1,
           'CI_BUILD_REF' => 2,
-          'CI_BUILD_REF_NAME' => 'test'
+          'CI_BUILD_REF_NAME' => 'test',
         )
 
-        result = CoverallsMulti::Config.add_ci_env({})
+        result = CoverallsMulti::Config.add_ci_env({git:{}})
 
         expect(result[:service_name]).to eq('gitlab-ci')
         expect(result[:service_job_number]).to eq(1)
         expect(result[:commit_sha]).to eq(2)
-        expect(result[:branch]).to eq('test')
+        expect(result[:git][:branch]).to eq('test')
       end
     end
 
@@ -204,7 +205,7 @@ RSpec.describe CoverallsMulti::Config do
           'COVERALLS_RUN_LOCALLY' => true,
         )
 
-        result = CoverallsMulti::Config.add_ci_env({})
+        result = CoverallsMulti::Config.add_ci_env({git:{}})
 
         expect(result[:service_name]).to eq('coveralls-multi')
         expect(result[:service_job_id]).to eq(nil)
