@@ -31,7 +31,7 @@ module CoverallsMulti
       end
 
       def api_domain
-        ENV['COVERALLS_ENDPOINT'] || 'https://coveralls.io'
+        ENV['COVERALLS_ENDPOINT'] || yaml_config['endpoint'] || 'https://coveralls.io'
       end
 
       def api_endpoint
