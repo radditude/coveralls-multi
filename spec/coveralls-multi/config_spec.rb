@@ -99,6 +99,7 @@ RSpec.describe CoverallsMulti::Config do
         expect(result[:service_name]).to eq('travis-ci')
         expect(result[:service_job_id]).to eq(1)
         expect(result[:service_branch]).to eq('test')
+        expect(result[:branch]).to eq('test')
       end
     end
 
@@ -109,6 +110,7 @@ RSpec.describe CoverallsMulti::Config do
           'CIRCLECI' => true,
           'CIRCLE_BUILD_NUM' => 1,
           'CIRCLE_NODE_INDEX' => 2,
+          'CIRCLE_BRANCH' => 'test',
         )
 
         result = CoverallsMulti::Config.add_ci_env({})
@@ -116,6 +118,7 @@ RSpec.describe CoverallsMulti::Config do
         expect(result[:service_name]).to eq('circleci')
         expect(result[:service_number]).to eq(1)
         expect(result[:service_job_number]).to eq(2)
+        expect(result[:branch]).to eq('test')
       end
     end
 
@@ -126,6 +129,7 @@ RSpec.describe CoverallsMulti::Config do
           'SEMAPHORE' => true,
           'SEMAPHORE_BUILD_NUMBER' => 1,
           'PULL_REQUEST_NUMBER' => 2,
+          'BRANCH_NAME' => 'test',
         )
 
         result = CoverallsMulti::Config.add_ci_env({})
@@ -133,6 +137,7 @@ RSpec.describe CoverallsMulti::Config do
         expect(result[:service_name]).to eq('semaphore')
         expect(result[:service_number]).to eq(1)
         expect(result[:service_pull_request]).to eq(2)
+        expect(result[:branch]).to eq('test')
       end
     end
 
@@ -150,6 +155,7 @@ RSpec.describe CoverallsMulti::Config do
         expect(result[:service_name]).to eq('jenkins')
         expect(result[:service_number]).to eq(1)
         expect(result[:service_branch]).to eq('test')
+        expect(result[:branch]).to eq('test')
       end
     end
 
@@ -160,29 +166,15 @@ RSpec.describe CoverallsMulti::Config do
           'APPVEYOR' => true,
           'APPVEYOR_BUILD_VERSION' => 1,
           'APPVEYOR_REPO_NAME' => 'test',
+          'APPVEYOR_REPO_BRANCH' => 'test'
         )
 
         result = CoverallsMulti::Config.add_ci_env({})
 
         expect(result[:service_name]).to eq('appveyor')
         expect(result[:service_number]).to eq(1)
+        expect(result[:branch]).to eq('test')
         expect(result[:service_build_url]).to eq('https://ci.appveyor.com/project/test/build/1')
-      end
-    end
-
-    describe 'TDDium' do
-      it 'adds the correct info' do
-        stub_const(
-          'ENV',
-          'TDDIUM' => true,
-          'TDDIUM_SESSION_ID' => 1,
-        )
-
-        result = CoverallsMulti::Config.add_ci_env({})
-
-        expect(result[:service_name]).to eq('tddium')
-        expect(result[:service_number]).to eq(1)
-        expect(result[:service_build_url]).to eq('https://ci.solanolabs.com/reports/1')
       end
     end
 
@@ -192,7 +184,8 @@ RSpec.describe CoverallsMulti::Config do
           'ENV',
           'GITLAB_CI' => true,
           'CI_BUILD_NAME' => 1,
-          'CI_BUILD_REF' => 2
+          'CI_BUILD_REF' => 2,
+          'CI_BUILD_REF_NAME' => 'test'
         )
 
         result = CoverallsMulti::Config.add_ci_env({})
@@ -200,6 +193,7 @@ RSpec.describe CoverallsMulti::Config do
         expect(result[:service_name]).to eq('gitlab-ci')
         expect(result[:service_job_number]).to eq(1)
         expect(result[:commit_sha]).to eq(2)
+        expect(result[:branch]).to eq('test')
       end
     end
 
