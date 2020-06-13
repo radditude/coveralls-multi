@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'coveralls-lcov', '~> 1.5.1'
-  spec.add_dependency 'httparty', '~> 0.16.4'
+  spec.add_dependency 'httparty', '~> 0.17.3'
 
   spec.add_development_dependency 'bundler', '> 1.16'
   spec.add_development_dependency 'coveralls', '~> 0.8.22'
